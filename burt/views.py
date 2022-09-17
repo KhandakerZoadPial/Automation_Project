@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .models import QueryHolder
 
 # Create your views here.
 def home(request):
@@ -19,10 +20,13 @@ def burt_(request):
         query = request.POST.get('query')
         if 'submit' in request.POST:
             print('submit button pressed')
+            import os
             return render(request, 'burt/result.html')
         elif 'save' in request.POST:
             # save the query in Database
-            print('save button pressed')
+            obj = QueryHolder()
+            obj.query = query
+            obj.save()
             return redirect('/burt')
     else:
         return render(request, 'burt/save_or_submit.html')
