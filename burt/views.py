@@ -105,35 +105,35 @@ def burt_(request):
 
             
             if fixed_type == 1:
-                Dg2Au[0] =  Dg2Au[0] + study.fixed('new/open')
-                Dg2Au[1] =  Dg2Au[1] + study.fixed('testme')
-                Dg2Au[2] =  Dg2Au[2] + study.fixed('study')
-                Dg2Au[3] =  Dg2Au[3] + study.fixed('fixed')
-                Dg2Au[4] =  Dg2Au[4] + study.fixed('closed')
-                Dg2Au[5] =  Dg2Au[5] + study.fixed('multistate')
+                Dg2Au[0] =  Dg2Au[0] + fixed.count('new/open')
+                Dg2Au[1] =  Dg2Au[1] + fixed.count('testme')
+                Dg2Au[2] =  Dg2Au[2] + fixed.count('study')
+                Dg2Au[3] =  Dg2Au[3] + fixed.count('fixed')
+                Dg2Au[4] =  Dg2Au[4] + fixed.count('closed')
+                Dg2Au[5] =  Dg2Au[5] + fixed.count('multistate')
             else:
-                Dg2AuPB1[0] =  Dg2AuPB1[0] + study.fixed('new/open')
-                Dg2AuPB1[1] =  Dg2AuPB1[1] + study.fixed('testme')
-                Dg2AuPB1[2] =  Dg2AuPB1[2] + study.fixed('study')
-                Dg2AuPB1[3] =  Dg2AuPB1[3] + study.fixed('fixed')
-                Dg2AuPB1[4] =  Dg2AuPB1[4] + study.fixed('closed')
-                Dg2AuPB1[5] =  Dg2AuPB1[5] + study.fixed('multistate')
+                Dg2AuPB1[0] =  Dg2AuPB1[0] + fixed.count('new/open')
+                Dg2AuPB1[1] =  Dg2AuPB1[1] + fixed.count('testme')
+                Dg2AuPB1[2] =  Dg2AuPB1[2] + fixed.count('study')
+                Dg2AuPB1[3] =  Dg2AuPB1[3] + fixed.count('fixed')
+                Dg2AuPB1[4] =  Dg2AuPB1[4] + fixed.count('closed')
+                Dg2AuPB1[5] =  Dg2AuPB1[5] + fixed.count('multistate')
 
             
             if closed_type == 1:
-                Dg2Au[0] =  Dg2Au[0] + study.closed('new/open')
-                Dg2Au[1] =  Dg2Au[1] + study.closed('testme')
-                Dg2Au[2] =  Dg2Au[2] + study.closed('study')
-                Dg2Au[3] =  Dg2Au[3] + study.closed('fixed')
-                Dg2Au[4] =  Dg2Au[4] + study.closed('closed')
-                Dg2Au[5] =  Dg2Au[5] + study.closed('multistate')
+                Dg2Au[0] =  Dg2Au[0] + closed.count('new/open')
+                Dg2Au[1] =  Dg2Au[1] + closed.count('testme')
+                Dg2Au[2] =  Dg2Au[2] + closed.count('study')
+                Dg2Au[3] =  Dg2Au[3] + closed.count('fixed')
+                Dg2Au[4] =  Dg2Au[4] + closed.count('closed')
+                Dg2Au[5] =  Dg2Au[5] + closed.count('multistate')
             else:
-                Dg2AuPB1[0] =  Dg2AuPB1[0] + study.closed('new/open')
-                Dg2AuPB1[1] =  Dg2AuPB1[1] + study.closed('testme')
-                Dg2AuPB1[2] =  Dg2AuPB1[2] + study.closed('study')
-                Dg2AuPB1[3] =  Dg2AuPB1[3] + study.closed('fixed')
-                Dg2AuPB1[4] =  Dg2AuPB1[4] + study.closed('closed')
-                Dg2AuPB1[5] =  Dg2AuPB1[5] + study.closed('multistate')
+                Dg2AuPB1[0] =  Dg2AuPB1[0] + closed.count('new/open')
+                Dg2AuPB1[1] =  Dg2AuPB1[1] + closed.count('testme')
+                Dg2AuPB1[2] =  Dg2AuPB1[2] + closed.count('study')
+                Dg2AuPB1[3] =  Dg2AuPB1[3] + closed.count('fixed')
+                Dg2AuPB1[4] =  Dg2AuPB1[4] + closed.count('closed')
+                Dg2AuPB1[5] =  Dg2AuPB1[5] + closed.count('multistate')
 
             context = {
                 'Dg2Au': Dg2Au,
