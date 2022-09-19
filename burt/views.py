@@ -1,6 +1,6 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
-from .models import QueryHolder
+from .models import QueryHolder, HelperModel
 
 # Create your views here.
 def home(request):
@@ -19,128 +19,73 @@ def home(request):
 def burt_(request):
     if request.method == 'POST':
         open_new = request.POST.get('open_new')
-        if 'Dg2Au' in open_new:
-            open_new_type = 1
-        elif 'Dg2AuPB1' in open_new:
-            open_new_type = 2
-        
         test_me = request.POST.get('test_me')
-        if 'Dg2Au' in test_me:
-            test_me_type = 1
-        elif 'Dg2AuPB1' in open_new:
-            test_me_type = 2
-
         study = request.POST.get('study')
-        if 'Dg2Au' in study:
-            study_type = 1
-        elif 'Dg2AuPB1' in open_new:
-            study_type = 2
-
         fixed = request.POST.get('fixed')
-        if 'Dg2Au' in fixed:
-            fixed_type = 1
-        elif 'Dg2AuPB1' in open_new:
-            fixed_type = 2
-
         closed = request.POST.get('closed')
-        if 'Dg2Au' in open_new:
-            closed_type = 1
-        elif 'Dg2AuPB1' in open_new:
-            closed_type = 2
+        
 
         if 'submit' in request.POST:
-            open_new =   send_req_get_data(open_new).lower()
-            test_me =   send_req_get_data(test_me).lower()
-            study =   send_req_get_data(study).lower()
-            fixed =   send_req_get_data(fixed).lower()
-            closed =   send_req_get_data(closed).lower()
+            open_new = send_req_get_data(open_new).lower()
+            test_me = send_req_get_data(test_me).lower()
+            study = send_req_get_data(study).lower()
+            fixed = send_req_get_data(fixed).lower()
+            closed = send_req_get_data(closed).lower()
 
-            # 0=new/open 1=testme 2=study 3=fixed 4=closed 5=multistate
-            Dg2Au = [0, 0, 0, 0, 0, 0]
-            Dg2AuPB1 = [0, 0, 0, 0, 0, 0]
-            if open_new_type == 1:
-                Dg2Au[0] =  Dg2Au[0] + open_new.count('new/open')
-                Dg2Au[1] =  Dg2Au[1] + open_new.count('testme')
-                Dg2Au[2] =  Dg2Au[2] + open_new.count('study')
-                Dg2Au[3] =  Dg2Au[3] + open_new.count('fixed')
-                Dg2Au[4] =  Dg2Au[4] + open_new.count('closed')
-                Dg2Au[5] =  Dg2Au[5] + open_new.count('multistate')
-            else:
-                Dg2AuPB1[0] =  Dg2AuPB1[0] + open_new.count('new/open')
-                Dg2AuPB1[1] =  Dg2AuPB1[1] + open_new.count('testme')
-                Dg2AuPB1[2] =  Dg2AuPB1[2] + open_new.count('study')
-                Dg2AuPB1[3] =  Dg2AuPB1[3] + open_new.count('fixed')
-                Dg2AuPB1[4] =  Dg2AuPB1[4] + open_new.count('closed')
-                Dg2AuPB1[5] =  Dg2AuPB1[5] + open_new.count('multistate')
+            # 0=new/open 1=testme 2=study 3=fixed 4=closed 5=multistate     
+            Dg2Au = [0, 0, 0, 0, 0, 0]    
+            Dg2Au[0] =  Dg2Au[0] + open_new.count('new')
+            Dg2Au[0] =  Dg2Au[0] + open_new.count('open')
+            Dg2Au[1] =  Dg2Au[1] + open_new.count('testme')
+            Dg2Au[2] =  Dg2Au[2] + open_new.count('study')
+            Dg2Au[3] =  Dg2Au[3] + open_new.count('fixed')
+            Dg2Au[4] =  Dg2Au[4] + open_new.count('closed')
+            Dg2Au[5] =  Dg2Au[5] + open_new.count('multistate')
 
-            if test_me_type == 1:
-                Dg2Au[0] =  Dg2Au[0] + test_me.count('new/open')
-                Dg2Au[1] =  Dg2Au[1] + test_me.count('testme')
-                Dg2Au[2] =  Dg2Au[2] + test_me.count('study')
-                Dg2Au[3] =  Dg2Au[3] + test_me.count('fixed')
-                Dg2Au[4] =  Dg2Au[4] + test_me.count('closed')
-                Dg2Au[5] =  Dg2Au[5] + test_me.count('multistate')
-            else:
-                Dg2AuPB1[0] =  Dg2AuPB1[0] + test_me.count('new/open')
-                Dg2AuPB1[1] =  Dg2AuPB1[1] + test_me.count('testme')
-                Dg2AuPB1[2] =  Dg2AuPB1[2] + test_me.count('study')
-                Dg2AuPB1[3] =  Dg2AuPB1[3] + test_me.count('fixed')
-                Dg2AuPB1[4] =  Dg2AuPB1[4] + test_me.count('closed')
-                Dg2AuPB1[5] =  Dg2AuPB1[5] + test_me.count('multistate')
+            Dg2Au[0] =  Dg2Au[0] + test_me.count('new')
+            Dg2Au[0] =  Dg2Au[0] + test_me.count('open')
+            Dg2Au[1] =  Dg2Au[1] + test_me.count('testme')
+            Dg2Au[2] =  Dg2Au[2] + test_me.count('study')
+            Dg2Au[3] =  Dg2Au[3] + test_me.count('fixed')
+            Dg2Au[4] =  Dg2Au[4] + test_me.count('closed')
+            Dg2Au[5] =  Dg2Au[5] + test_me.count('multistate')
 
-            if study_type == 1:
-                Dg2Au[0] =  Dg2Au[0] + study.count('new/open')
-                Dg2Au[1] =  Dg2Au[1] + study.count('testme')
-                Dg2Au[2] =  Dg2Au[2] + study.count('study')
-                Dg2Au[3] =  Dg2Au[3] + study.count('fixed')
-                Dg2Au[4] =  Dg2Au[4] + study.count('closed')
-                Dg2Au[5] =  Dg2Au[5] + study.count('multistate')
-            else:
-                Dg2AuPB1[0] =  Dg2AuPB1[0] + study.count('new/open')
-                Dg2AuPB1[1] =  Dg2AuPB1[1] + study.count('testme')
-                Dg2AuPB1[2] =  Dg2AuPB1[2] + study.count('study')
-                Dg2AuPB1[3] =  Dg2AuPB1[3] + study.count('fixed')
-                Dg2AuPB1[4] =  Dg2AuPB1[4] + study.count('closed')
-                Dg2AuPB1[5] =  Dg2AuPB1[5] + study.count('multistate')
+            Dg2Au[0] =  Dg2Au[0] + study.count('new')
+            Dg2Au[0] =  Dg2Au[0] + study.count('open')
+            Dg2Au[1] =  Dg2Au[1] + study.count('testme')
+            Dg2Au[2] =  Dg2Au[2] + study.count('study')
+            Dg2Au[3] =  Dg2Au[3] + study.count('fixed')
+            Dg2Au[4] =  Dg2Au[4] + study.count('closed')
+            Dg2Au[5] =  Dg2Au[5] + study.count('multistate')
 
-            
-            if fixed_type == 1:
-                Dg2Au[0] =  Dg2Au[0] + fixed.count('new/open')
-                Dg2Au[1] =  Dg2Au[1] + fixed.count('testme')
-                Dg2Au[2] =  Dg2Au[2] + fixed.count('study')
-                Dg2Au[3] =  Dg2Au[3] + fixed.count('fixed')
-                Dg2Au[4] =  Dg2Au[4] + fixed.count('closed')
-                Dg2Au[5] =  Dg2Au[5] + fixed.count('multistate')
-            else:
-                Dg2AuPB1[0] =  Dg2AuPB1[0] + fixed.count('new/open')
-                Dg2AuPB1[1] =  Dg2AuPB1[1] + fixed.count('testme')
-                Dg2AuPB1[2] =  Dg2AuPB1[2] + fixed.count('study')
-                Dg2AuPB1[3] =  Dg2AuPB1[3] + fixed.count('fixed')
-                Dg2AuPB1[4] =  Dg2AuPB1[4] + fixed.count('closed')
-                Dg2AuPB1[5] =  Dg2AuPB1[5] + fixed.count('multistate')
+            Dg2Au[0] =  Dg2Au[0] + fixed.count('new')
+            Dg2Au[0] =  Dg2Au[0] + fixed.count('open')
+            Dg2Au[1] =  Dg2Au[1] + fixed.count('testme')
+            Dg2Au[2] =  Dg2Au[2] + fixed.count('study')
+            Dg2Au[3] =  Dg2Au[3] + fixed.count('fixed')
+            Dg2Au[4] =  Dg2Au[4] + fixed.count('closed')
+            Dg2Au[5] =  Dg2Au[5] + fixed.count('multistate')
 
-            
-            if closed_type == 1:
-                Dg2Au[0] =  Dg2Au[0] + closed.count('new/open')
-                Dg2Au[1] =  Dg2Au[1] + closed.count('testme')
-                Dg2Au[2] =  Dg2Au[2] + closed.count('study')
-                Dg2Au[3] =  Dg2Au[3] + closed.count('fixed')
-                Dg2Au[4] =  Dg2Au[4] + closed.count('closed')
-                Dg2Au[5] =  Dg2Au[5] + closed.count('multistate')
-            else:
-                Dg2AuPB1[0] =  Dg2AuPB1[0] + closed.count('new/open')
-                Dg2AuPB1[1] =  Dg2AuPB1[1] + closed.count('testme')
-                Dg2AuPB1[2] =  Dg2AuPB1[2] + closed.count('study')
-                Dg2AuPB1[3] =  Dg2AuPB1[3] + closed.count('fixed')
-                Dg2AuPB1[4] =  Dg2AuPB1[4] + closed.count('closed')
-                Dg2AuPB1[5] =  Dg2AuPB1[5] + closed.count('multistate')
+            Dg2Au[0] =  Dg2Au[0] + closed.count('new')
+            Dg2Au[0] =  Dg2Au[0] + closed.count('open')
+            Dg2Au[1] =  Dg2Au[1] + closed.count('testme')
+            Dg2Au[2] =  Dg2Au[2] + closed.count('study')
+            Dg2Au[3] =  Dg2Au[3] + closed.count('fixed')
+            Dg2Au[4] =  Dg2Au[4] + closed.count('closed')
+            Dg2Au[5] =  Dg2Au[5] + closed.count('multistate')
 
-            context = {
-                'Dg2Au': Dg2Au,
-                'Dg2AuPB1': Dg2AuPB1
-            }
+            # todo: add the same thing for multistate
 
-            return render(request, 'burt/result.html', context)
+            obj = HelperModel()
+            obj.open_new = Dg2Au[0]
+            obj.test_me = Dg2Au[1]
+            obj.study = Dg2Au[2]
+            obj.fixed = Dg2Au[3]
+            obj.closed = Dg2Au[4]
+            obj.multistate = Dg2Au[5]
+            obj.save()
+            return redirect(f'/burt2/{obj.pk}')
+
         elif 'save' in request.POST:
             # save the query in Database
             # obj = QueryHolder()
@@ -150,6 +95,71 @@ def burt_(request):
     else:
         return render(request, 'burt/save_or_submit.html')
 
+
+def burt__(request, pk):
+    obj = HelperModel.objects.get(pk=pk)
+    if request.method == 'POST':
+        open_new = send_req_get_data(open_new).lower()
+        test_me = send_req_get_data(test_me).lower()
+        study = send_req_get_data(study).lower()
+        fixed = send_req_get_data(fixed).lower()
+        closed = send_req_get_data(closed).lower()
+
+        # 0=new/open 1=testme 2=study 3=fixed 4=closed 5=multistate     
+        Dg2Au = [0, 0, 0, 0, 0, 0]      
+        Dg2Au[0] =  Dg2Au[0] + open_new.count('new')
+        Dg2Au[0] =  Dg2Au[0] + open_new.count('open')
+        Dg2Au[1] =  Dg2Au[1] + open_new.count('testme')
+        Dg2Au[2] =  Dg2Au[2] + open_new.count('study')
+        Dg2Au[3] =  Dg2Au[3] + open_new.count('fixed')
+        Dg2Au[4] =  Dg2Au[4] + open_new.count('closed')
+        Dg2Au[5] =  Dg2Au[5] + open_new.count('multistate')
+
+        Dg2Au[0] =  Dg2Au[0] + test_me.count('new')
+        Dg2Au[0] =  Dg2Au[0] + test_me.count('open')
+        Dg2Au[1] =  Dg2Au[1] + test_me.count('testme')
+        Dg2Au[2] =  Dg2Au[2] + test_me.count('study')
+        Dg2Au[3] =  Dg2Au[3] + test_me.count('fixed')
+        Dg2Au[4] =  Dg2Au[4] + test_me.count('closed')
+        Dg2Au[5] =  Dg2Au[5] + test_me.count('multistate')
+
+        Dg2Au[0] =  Dg2Au[0] + study.count('new')
+        Dg2Au[0] =  Dg2Au[0] + study.count('open')
+        Dg2Au[1] =  Dg2Au[1] + study.count('testme')
+        Dg2Au[2] =  Dg2Au[2] + study.count('study')
+        Dg2Au[3] =  Dg2Au[3] + study.count('fixed')
+        Dg2Au[4] =  Dg2Au[4] + study.count('closed')
+        Dg2Au[5] =  Dg2Au[5] + study.count('multistate')
+
+        Dg2Au[0] =  Dg2Au[0] + fixed.count('new')
+        Dg2Au[0] =  Dg2Au[0] + fixed.count('open')
+        Dg2Au[1] =  Dg2Au[1] + fixed.count('testme')
+        Dg2Au[2] =  Dg2Au[2] + fixed.count('study')
+        Dg2Au[3] =  Dg2Au[3] + fixed.count('fixed')
+        Dg2Au[4] =  Dg2Au[4] + fixed.count('closed')
+        Dg2Au[5] =  Dg2Au[5] + fixed.count('multistate')
+
+        Dg2Au[0] =  Dg2Au[0] + closed.count('new')
+        Dg2Au[0] =  Dg2Au[0] + closed.count('open')
+        Dg2Au[1] =  Dg2Au[1] + closed.count('testme')
+        Dg2Au[2] =  Dg2Au[2] + closed.count('study')
+        Dg2Au[3] =  Dg2Au[3] + closed.count('fixed')
+        Dg2Au[4] =  Dg2Au[4] + closed.count('closed')
+        Dg2Au[5] =  Dg2Au[5] + closed.count('multistate')
+
+        # todo: add the same thing for multistate
+        context = {
+            'dg2au': obj,
+            'open_new': Dg2Au[0],
+            'test_me': Dg2Au[1],
+            'study': Dg2Au[2],
+            'fixed': Dg2Au[3],
+            'closed': Dg2Au[4],
+            'multistate': Dg2Au[5]
+        }
+        return render(request, 'burt/result.html'. context)
+    else:
+        return render(request, 'burt/burt2.html')
 
 # ----helpers---
 def send_req_get_data(query):
