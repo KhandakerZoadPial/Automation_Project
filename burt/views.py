@@ -76,6 +76,15 @@ def burt_(request):
             Dg2Au[4] =  Dg2Au[4] + closed.count('closed')
             Dg2Au[5] =  Dg2Au[5] + closed.count('multistate')
 
+
+            Dg2Au[0] =  Dg2Au[0] + multistate.count('new')
+            Dg2Au[0] =  Dg2Au[0] + multistate.count('open')
+            Dg2Au[1] =  Dg2Au[1] + multistate.count('testme')
+            Dg2Au[2] =  Dg2Au[2] + multistate.count('study')
+            Dg2Au[3] =  Dg2Au[3] + multistate.count('fixed')
+            Dg2Au[4] =  Dg2Au[4] + multistate.count('closed')
+            Dg2Au[5] =  Dg2Au[5] + multistate.count('multistate') 
+
             # todo: add the same thing for multistate
 
             obj = HelperModel()
@@ -155,7 +164,16 @@ def burt__(request, pk):
         Dg2Au[2] =  Dg2Au[2] + closed.count('study')
         Dg2Au[3] =  Dg2Au[3] + closed.count('fixed')
         Dg2Au[4] =  Dg2Au[4] + closed.count('closed')
-        Dg2Au[5] =  Dg2Au[5] + closed.count('multistate')        
+        Dg2Au[5] =  Dg2Au[5] + closed.count('multistate')
+
+
+        Dg2Au[0] =  Dg2Au[0] + multistate.count('new')
+        Dg2Au[0] =  Dg2Au[0] + multistate.count('open')
+        Dg2Au[1] =  Dg2Au[1] + multistate.count('testme')
+        Dg2Au[2] =  Dg2Au[2] + multistate.count('study')
+        Dg2Au[3] =  Dg2Au[3] + multistate.count('fixed')
+        Dg2Au[4] =  Dg2Au[4] + multistate.count('closed')
+        Dg2Au[5] =  Dg2Au[5] + multistate.count('multistate')        
         total = Dg2Au[0] + Dg2Au[1] + Dg2Au[2] + Dg2Au[3] + Dg2Au[4] + Dg2Au[5]
         # todo: add the same thing for multistate
         context = {
