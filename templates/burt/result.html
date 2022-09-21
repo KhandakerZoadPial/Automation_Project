@@ -8,40 +8,8 @@ Result
 {% block body %}
 <div class="container">
 
-
     <table class="table">
         <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table class="table">
-        <thead class="thead-light">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">NEW/OPEN</th>
@@ -50,6 +18,7 @@ Result
                 <th scope="col">CLOSED</th>
                 <th scope="col">FIXED</th>
                 <th scope="col">MULTISATE</th>
+                <th scope="col">Total</th>
             </tr>
         </thead>
         <tbody>
@@ -61,6 +30,7 @@ Result
                 <td>{{dg2au.fixed}}</td>
                 <td>{{dg2au.closed}}</td>
                 <td>{{dg2au.multistate}}</td>
+                <td>{{dg2au.total}}</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
@@ -70,6 +40,7 @@ Result
                 <td>{{fixed}}</td>
                 <td>{{closed}}</td>
                 <td>{{multistate}}</td>
+                <td>{{total}}</td>
             </tr>
         </tbody>
     </table>

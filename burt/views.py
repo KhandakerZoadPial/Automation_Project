@@ -23,6 +23,7 @@ def burt_(request):
         study = request.POST.get('study')
         fixed = request.POST.get('fixed')
         closed = request.POST.get('closed')
+        multistate = request.POST.get('multistate')
         
 
         if 'submit' in request.POST:
@@ -31,6 +32,7 @@ def burt_(request):
             study = send_req_get_data(study).lower()
             fixed = send_req_get_data(fixed).lower()
             closed = send_req_get_data(closed).lower()
+            multistate = send_req_get_data(multistate).lower()
 
             # 0=new/open 1=testme 2=study 3=fixed 4=closed 5=multistate     
             Dg2Au = [0, 0, 0, 0, 0, 0]    
@@ -83,6 +85,7 @@ def burt_(request):
             obj.fixed = Dg2Au[3]
             obj.closed = Dg2Au[4]
             obj.multistate = Dg2Au[5]
+            obj.total = Dg2Au[0] + Dg2Au[1] + Dg2Au[2] + Dg2Au[3] + Dg2Au[4] + Dg2Au[5]
             obj.save()
             return redirect(f'/burt2/{obj.pk}')
 
@@ -99,11 +102,18 @@ def burt_(request):
 def burt__(request, pk):
     obj = HelperModel.objects.get(pk=pk)
     if request.method == 'POST':
+        open_new = request.POST.get('open_new')
+        test_me = request.POST.get('test_me')
+        study = request.POST.get('study')
+        fixed = request.POST.get('fixed')
+        closed = request.POST.get('closed')
+        multistate = request.POST.get('multistate')
         open_new = send_req_get_data(open_new).lower()
         test_me = send_req_get_data(test_me).lower()
         study = send_req_get_data(study).lower()
         fixed = send_req_get_data(fixed).lower()
         closed = send_req_get_data(closed).lower()
+        multistate = send_req_get_data(multistate).lower()
 
         # 0=new/open 1=testme 2=study 3=fixed 4=closed 5=multistate     
         Dg2Au = [0, 0, 0, 0, 0, 0]      
@@ -145,8 +155,8 @@ def burt__(request, pk):
         Dg2Au[2] =  Dg2Au[2] + closed.count('study')
         Dg2Au[3] =  Dg2Au[3] + closed.count('fixed')
         Dg2Au[4] =  Dg2Au[4] + closed.count('closed')
-        Dg2Au[5] =  Dg2Au[5] + closed.count('multistate')
-
+        Dg2Au[5] =  Dg2Au[5] + closed.count('multistate')        
+        total = Dg2Au[0] + Dg2Au[1] + Dg2Au[2] + Dg2Au[3] + Dg2Au[4] + Dg2Au[5]
         # todo: add the same thing for multistate
         context = {
             'dg2au': obj,
@@ -155,9 +165,11 @@ def burt__(request, pk):
             'study': Dg2Au[2],
             'fixed': Dg2Au[3],
             'closed': Dg2Au[4],
-            'multistate': Dg2Au[5]
+            'multistate': Dg2Au[5],
+            'total1': obj.total,
+            'total2': total
         }
-        return render(request, 'burt/result.html'. context)
+        return render(request, 'burt/result.html', context)
     else:
         return render(request, 'burt/burt2.html')
 

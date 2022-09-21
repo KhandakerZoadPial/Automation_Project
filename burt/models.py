@@ -17,3 +17,5 @@ class HelperModel(models.Model):
     fixed = models.IntegerField(default=0)
     closed = models.IntegerField(default=0)
     multistate = models.IntegerField(default=0)
+
+    total = models.IntegerField(default=0)

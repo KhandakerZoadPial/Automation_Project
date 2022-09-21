@@ -9,7 +9,7 @@ Burt Query
 <div class="container mt-4">
     <div class="card">
         <div class="card-body">
-            <form action="{% url 'burt__' %}" method="POST">
+            <form action="{% url 'burt__' 1 %}" method="POST">
                 {% csrf_token %}
                 <label>Please Enter Your OPEN/NEW Query</label>
                 <input type="text" name="open_new" class="form-control" id="">
@@ -25,6 +25,9 @@ Burt Query
                 <br>
                 <label>Please Enter Your CLOSED Query</label>
                 <input type="text" name="closed" class="form-control" id="">
+                <br>
+                <label>Please Enter Your MULTISTATE Query</label>
+                <input type="text" name="multistate" class="form-control" id="">
                 <button type="submit" class="btn btn-outline-warning mt-2" name="submit">Result</button>
             </form>
         </div>
