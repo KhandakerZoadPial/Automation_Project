@@ -19,7 +19,9 @@ Result
             </tr>
         </thead>
         <tbody>
+            
             {% for res in result %}
+            <tr>
                 {% for item in res %}
                     {% if forloop.counter0 == 1 %}
                         {% for key, value in item.items %} 
@@ -28,7 +30,8 @@ Result
                     {% else %}
                     <th scope="row">{{item}}</th>
                     {% endif %}
-                {% endfor %}                
+                {% endfor %} 
+            </tr>               
             {% endfor %}
         </tbody>
     </table>
