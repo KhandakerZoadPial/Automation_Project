@@ -46,7 +46,7 @@ def query_boss(request, num_of_queries):
             result = send_req_get_data(query_).lower()
             tmp_dict = {}
             for word in keywords:
-                tmp = result.count(word)
+                tmp = result.count(word.lower())
                 tmp_dict[word] = tmp
             
             if name not in names:
