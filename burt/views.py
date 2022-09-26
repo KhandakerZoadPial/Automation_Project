@@ -2,12 +2,27 @@ from multiprocessing import context
 from django.shortcuts import render, redirect
 from .models import QueryHolder, HelperModel
 
-# Create your views here.
+
+
+
+def new_home(request):
+    if request.method == 'POST':
+        type_new_modify = request.POST.get('type_new_modify')
+        report_name = request.POST.get('report_name')
+        if type_new_modify == 'new':
+            return render(request, 'burt/home.html')
+        else:
+            pass
+    else:
+        return render(request, 'burt/new_home.html')
+
+
 def home(request):
     if request.method == 'POST':
         query = request.POST.get('query_select')
         if query == 'burt':
-            return redirect('/burt')
+            num_of_queries = request.POST.get('num_of_queries')
+            return redirect(f'/query_boss/{num_of_queries}')
         elif query == 'Jira':
             pass
         elif query == 'QTest':
@@ -15,6 +30,53 @@ def home(request):
     else:
         return render(request, 'burt/home.html')
 
+
+def query_boss(request, num_of_queries):
+    if request.method == 'POST':
+        keywords = request.POST.get('keywords')
+        keywords = keywords.split(',')
+        names = []
+        new = []
+        for i in range(int(num_of_queries)):
+            name = request.POST.get(f'name_{i+1}')
+
+            query_ = request.POST.get(f'q_{i+1}')
+
+            # counting for every keyword then keeping the result inside res dict
+            result = send_req_get_data(query_).lower()
+            tmp_dict = {}
+            for word in keywords:
+                tmp = result.count(word)
+                tmp_dict[word] = tmp
+            
+            if name not in names:
+                names.append(name)
+                new.append([name, tmp_dict])
+            else:
+                for item in new:
+                    if name in item[0]:
+                        pial_ = item[1]
+                        for w in keywords:
+                            pial_[w] = pial_[w] + tmp_dict[w]
+                        item[1] = pial_
+                        # names.append(name)
+                        break
+        context = {
+            'result': new,
+            'keywords': keywords
+        }
+
+        return render(request, 'burt/new_result.html', context)
+
+    else:
+        my_list = []
+        for i in range(int(num_of_queries)):
+            my_list.append(i+1)
+        context = {
+            'list_': my_list,
+            'num_of_queries': num_of_queries
+        }
+        return render(request, 'burt/query_boss.html', context)
 
 def burt_(request):
     if request.method == 'POST':

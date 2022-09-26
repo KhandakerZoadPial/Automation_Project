@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Result
+{% endblock title %}
+
+
+{% block body %}
+<br><br><br>
+<div class="container">
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Keyword</th>
+                {% for word in keywords %}
+                <th scope="col">{{word}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <br><br>
+            {{result}}
+            <!-- <tr>
+                <th scope="row">Dg2Au</th>
+                <td>{{dg2au.open_new}}</td>
+                <td>{{dg2au.test_me}}</td>
+                <td>{{dg2au.study}}</td>
+                <td>{{dg2au.fixed}}</td>
+                <td>{{dg2au.closed}}</td>
+                <td>{{dg2au.multistate}}</td>
+                <td>{{total1}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Dg2AuPB1</th>
+                <td>{{open_new}}</td>
+                <td>{{test_me}}</td>
+                <td>{{study}}</td>
+                <td>{{fixed}}</td>
+                <td>{{closed}}</td>
+                <td>{{multistate}}</td>
+                <td>{{total2}}</td>
+            </tr> -->
+        </tbody>
+    </table>
+</div>
+{% endblock body %}

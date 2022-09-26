@@ -2,7 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.new_home, name='new_home'),
+    path('select_type', views.home, name='home'),
     path('burt', views.burt_, name='burt_'),
-    path('burt2/<int:pk>', views.burt__, name='burt__')
+    path('burt2/<int:pk>', views.burt__, name='burt__'),
+    path('query_boss/<int:num_of_queries>', views.query_boss, name='query_boss')
 ]
