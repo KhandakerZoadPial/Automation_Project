@@ -44,11 +44,12 @@ def query_boss(request, num_of_queries):
 
             # counting for every keyword then keeping the result inside res dict
             result = send_req_get_data(query_).lower()
+            print('result: '+result)
             tmp_dict = {}
             for word in keywords:
                 tmp = result.count(word.lower())
+                print(tmp)
                 tmp_dict[f'{word}'] = tmp
-            print(tmp_dict)
             if name not in names:
                 names.append(name)
                 new.append([name, tmp_dict])
