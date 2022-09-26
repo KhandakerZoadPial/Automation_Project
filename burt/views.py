@@ -47,8 +47,8 @@ def query_boss(request, num_of_queries):
             tmp_dict = {}
             for word in keywords:
                 tmp = result.count(word.lower())
-                tmp_dict[word] = tmp
-            
+                tmp_dict[f'{word}'] = tmp
+            print(tmp_dict)
             if name not in names:
                 names.append(name)
                 new.append([name, tmp_dict])
@@ -58,6 +58,7 @@ def query_boss(request, num_of_queries):
                         for w in keywords:
                             item[1][w] = item[1][w] + tmp_dict[w]
                         break
+            print(new)
         context = {
             'result': new,
             'keywords': keywords
