@@ -55,11 +55,8 @@ def query_boss(request, num_of_queries):
             else:
                 for item in new:
                     if name in item[0]:
-                        pial_ = item[1]
                         for w in keywords:
-                            pial_[w] = pial_[w] + tmp_dict[w]
-                        item[1] = pial_
-                        # names.append(name)
+                            item[1][w] = item[1][w] + tmp_dict[w]
                         break
         context = {
             'result': new,
