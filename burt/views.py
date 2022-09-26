@@ -41,6 +41,7 @@ def query_boss(request, num_of_queries):
             name = request.POST.get(f'name_{i+1}')
 
             query_ = request.POST.get(f'q_{i+1}')
+            print(query_)
 
             # counting for every keyword then keeping the result inside res dict
             result = send_req_get_data(query_).lower()

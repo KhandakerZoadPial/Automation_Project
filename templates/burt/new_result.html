@@ -20,7 +20,19 @@ Result
         </thead>
         <tbody>
             <br><br>
-            {{result}}
+            {% for res in result %}
+                {% for item in res %}
+                    {% if forloop.counter0 == 1 %}
+                        {% for key, value in item.items %} 
+                        <td>{{value}}</td>
+                        {% endfor %}
+                    {% else %}
+                    {{item}}
+                    {% endif %}
+                {% endfor %}                
+            {% endfor %}
+            
+            
             <!-- <tr>
                 <th scope="row">Dg2Au</th>
                 <td>{{dg2au.open_new}}</td>
