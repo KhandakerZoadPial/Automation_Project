@@ -6,5 +6,5 @@ urlpatterns = [
     path('select_type', views.home, name='home'),
     path('burt', views.burt_, name='burt_'),
     path('burt2/<int:pk>', views.burt__, name='burt__'),
-    path('query_boss/<int:num_of_queries>', views.query_boss, name='query_boss')
+    path('query_boss/<int:num_of_queries>/<int:number_of_rows>/<int:number_of_columns>', views.query_boss, name='query_boss')
 ]
