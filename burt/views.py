@@ -35,8 +35,9 @@ def home(request):
 
 def query_boss(request, num_of_queries, number_of_rows, number_of_columns):
     if request.method == 'POST':
-        keywords = request.POST.get('keywords')
-        keywords = keywords.split(',')
+        keywords = []
+        for i in range(number_of_columns):
+            keywords.append(request.POST.get(f'keyword{i}'))
         names = []
         new = []
         for i in range(int(num_of_queries)):
