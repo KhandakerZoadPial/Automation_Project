@@ -15,6 +15,7 @@ Burt Queries
                 <input type="text" class="form-control" placeholder="multistate, testme" name="keywords" id="">
                 <br> -->
                 <!--  -->
+                {% for i in list_ %}
                 <table class="table">
                     <thead class="thead">
                       <tr>
@@ -29,7 +30,7 @@ Burt Queries
                     <tbody>
                         {% for iterate_ in number_of_rows %}
                             <tr>
-                                <td>Keyword</td>
+                                <td><input type="text" class="form-control" placeholder="Dg2Au" name="keyword{{iterate_}}key"></td>
                                 {% for iterate__ in number_of_columns %}
                                 <td>0</td>
                                 {% endfor %}
@@ -42,8 +43,8 @@ Burt Queries
                   
                 <!--  -->
                 <hr>
-                {% for i in list_ %}
-                <label>Enter Query {{i}}</label>
+                
+                <!-- <label>Enter Query {{i}}</label>
                 <div class="row">
                     <div class="col-md-4">
                         <input type="text" name="name_{{i}}" class="form-control" placeholder="Keyword- ex-Dg2Au">
@@ -53,9 +54,9 @@ Burt Queries
                     </div>
                 </div>
                 
-                <br>
+                <br> -->
                 {% endfor %}
-                <button type="submit" class="btn btn-outline-warning mt-2" name="submit">Result</button>
+                <button type="submit" class="btn btn-outline-warning mt-2" name="submit">Proceed</button>
             </form>
         </div>
     </div>

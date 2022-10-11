@@ -21,10 +21,10 @@ def home(request):
     if request.method == 'POST':
         query = request.POST.get('query_select')
         if query == 'burt':
-            num_of_queries = request.POST.get('num_of_queries')
+            num_of_tables = request.POST.get('num_of_tables')
             number_of_rows = request.POST.get('number_of_rows')
             number_of_columns = request.POST.get('number_of_columns')
-            return redirect(f'/query_boss/{num_of_queries}/{number_of_rows}/{number_of_columns}')
+            return redirect(f'/query_boss/{num_of_tables}/{number_of_rows}/{number_of_columns}')
         elif query == 'Jira':
             pass
         elif query == 'QTest':
@@ -33,14 +33,14 @@ def home(request):
         return render(request, 'burt/home.html')
 
 
-def query_boss(request, num_of_queries, number_of_rows, number_of_columns):
+def query_boss(request, num_of_tables, number_of_rows, number_of_columns):
     if request.method == 'POST':
         keywords = []
         for i in range(number_of_columns):
             keywords.append(request.POST.get(f'keyword{i}'))
         names = []
         new = []
-        for i in range(int(num_of_queries)):
+        for i in range(int(num_of_tables)):
             name = request.POST.get(f'name_{i+1}')
 
             query_ = request.POST.get(f'q_{i+1}')
@@ -72,11 +72,11 @@ def query_boss(request, num_of_queries, number_of_rows, number_of_columns):
 
     else:
         my_list = []
-        for i in range(int(num_of_queries)):
+        for i in range(int(num_of_tables)):
             my_list.append(i+1)
         context = {
             'list_': my_list,
-            'num_of_queries': num_of_queries,
+            'num_of_queries': num_of_tables,
             'number_of_rows': range(number_of_rows),
             'number_of_columns': range(number_of_columns)
         }
