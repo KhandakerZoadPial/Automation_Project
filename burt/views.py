@@ -33,14 +33,63 @@ def home(request):
         return render(request, 'burt/home.html')
 
 
+from .models import TempDataHolder
 def query_boss(request, num_of_tables, number_of_rows, number_of_columns):
+    if request.method == 'POST':
+        keywords = []
+        main_keywords = []
+        for i in range(int(num_of_tables)):
+            for j in range(number_of_columns):
+                keywords.append(request.POST.get(f'keyword{i+1}{j}'))
+            for j in range(number_of_rows):
+                main_keywords.append(request.POST.get(f'mainkeyword{i+1}{j}key'))
+            tdh = TempDataHolder()
+            one = ''
+            two = ''
+        for item in keywords:
+            one = one + str(item) + ','
+        for item in main_keywords:
+            two = two + str(item) + ','
+        
+        # saving it to database for future use
+        tdh.keywords = one
+        tdh.main_keywords = two
+        tdh.save()
+
+        context = {
+            'pk': tdh.pk,
+            'list_': range(num_of_tables),
+            'number_of_rows': range(number_of_rows),
+            'number_of_columns': range(number_of_columns),
+            'num_of_tables': num_of_tables,
+            'number_of_rows_1': number_of_rows,
+            'number_of_columns1': number_of_columns,
+            'number_of_input_box': range(number_of_rows * number_of_columns)
+
+        }
+        return render(request, 'burt/show_queries_input.html', context)
+
+    else:
+        context = {
+            'list_': range(num_of_tables),
+            'number_of_rows': range(number_of_rows),
+            'number_of_columns': range(number_of_columns),
+            'num_of_tables': num_of_tables,
+            'number_of_rows_1': number_of_rows,
+            'number_of_columns1': number_of_columns
+        }
+        return render(request, 'burt/query_boss.html', context)
+
+
+
+def new_query_boss(request, number_of_tables, number_of_rows, number_of_columns, previous_data_pk):
     if request.method == 'POST':
         keywords = []
         for i in range(number_of_columns):
             keywords.append(request.POST.get(f'keyword{i}'))
         names = []
         new = []
-        for i in range(int(num_of_tables)):
+        for i in range(int(number_of_tables)):
             name = request.POST.get(f'name_{i+1}')
 
             query_ = request.POST.get(f'q_{i+1}')
@@ -62,31 +111,6 @@ def query_boss(request, num_of_tables, number_of_rows, number_of_columns):
                         for w in keywords:
                             item[1][w] = item[1][w] + tmp_dict[w]
                         break
-            print(new)
-        context = {
-            'result': new,
-            'keywords': keywords
-        }
-
-        return render(request, 'burt/new_result.html', context)
-
-    else:
-        my_list = []
-        for i in range(int(num_of_tables)):
-            my_list.append(i+1)
-        context = {
-            'list_': my_list,
-            'num_of_queries': num_of_tables,
-            'number_of_rows': range(number_of_rows),
-            'number_of_columns': range(number_of_columns)
-        }
-        return render(request, 'burt/query_boss.html', context)
-
-
-
-def new_query_boss(request, number_of_tables, number_of_rows, number_of_columns):
-    if request.method == 'POST':
-        pass
     else:
         pass
 

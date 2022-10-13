@@ -9,11 +9,12 @@ Burt Queries
 <div class="container mt-4">
     <div class="card">
         <div class="card-body">
-            <form action="{% url 'query_boss' num_of_queries 2 3 %}" method="POST">
+            <form action="{% url 'query_boss' num_of_tables number_of_rows_1 number_of_columns1 %}" method="POST">
                 {% csrf_token %}
                 {% for i in list_ %}
                 <h4>
                     Table {{forloop.counter}}
+                    {% with firstname=forloop.counter %}
                 </h4>
                 <table class="table">
                     <thead class="thead">
@@ -21,7 +22,7 @@ Burt Queries
                         <th scope="col">Keywords</th>
                         {% for iterate_ in number_of_columns %}
                         <th scope="col">
-                            <input type="text" class="form-control" placeholder="Testme, multistae etc" name="keyword{{iterate_}}">
+                            <input type="text" class="form-control" placeholder="Testme, multistae etc" name="keyword{{firstname}}{{iterate_}}">
                         </th>
                         {% endfor %}
                       </tr>
@@ -29,15 +30,16 @@ Burt Queries
                     <tbody>
                         {% for iterate_ in number_of_rows %}
                             <tr>
-                                <td><input type="text" class="form-control" placeholder="Dg2Au" name="keyword{{iterate_}}key"></td>
+                                <td><input type="text" class="form-control" placeholder="Dg2Au" name="mainkeyword{{firstname}}{{iterate_}}key"></td>
                                 {% for iterate__ in number_of_columns %}
-                                <td>Query {{iterate_}}{{iterate__}} </td>
+                                <td>Query {{firstname}}{{iterate_}}{{iterate__}} </td>
                                 {% endfor %}
                             </tr>
                         {% endfor %}
                      
                     </tbody>
                   </table>
+                  {% endwith %}
                   <hr>
                 {% endfor %}
                 <button type="submit" class="btn btn-outline-warning mt-2" name="submit">Proceed</button>

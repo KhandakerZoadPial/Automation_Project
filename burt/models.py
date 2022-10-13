@@ -19,3 +19,8 @@ class HelperModel(models.Model):
     multistate = models.IntegerField(default=0)
 
     total = models.IntegerField(default=0)
+
+
+class TempDataHolder(models.Model):
+    keywords = models.TextField()
+    main_keywords = models.TextField()

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Result
+{% endblock title %}
+
+
+{% block body %}
+<br>
+<div class="container card">
+    <h2 class="mt-2" style="text-align: center;">Pease Enter Queries</h2>
+    <form action="" class="ml-2 mr-2 mt-2">
+        {% for item in list_ %}
+            {% with firstname=forloop.counter %}
+                
+                {% for iterate_ in number_of_rows %}
+                    {% for i in number_of_columns %}
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="input-group-text">Query {{firstname}}{{iterate_}}{{i}}</span>
+                            </div>
+
+                            <div class="col-md-9">
+                                <div class="form-floating" style="width: 94%;">
+                                    <input type="text" name="q{{firstname}}{{iterate_}}{{i}}" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endwith %}
+        {% endfor %}
+    </form>
+</div>
+
+{% endblock body %}
