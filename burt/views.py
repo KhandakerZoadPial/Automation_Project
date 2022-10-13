@@ -82,6 +82,15 @@ def query_boss(request, num_of_tables, number_of_rows, number_of_columns):
         }
         return render(request, 'burt/query_boss.html', context)
 
+
+
+def new_query_boss(request, number_of_tables, number_of_rows, number_of_columns):
+    if request.method == 'POST':
+        pass
+    else:
+        pass
+
+
 def burt_(request):
     if request.method == 'POST':
         open_new = request.POST.get('open_new')

@@ -11,11 +11,10 @@ Burt Queries
         <div class="card-body">
             <form action="{% url 'query_boss' num_of_queries 2 3 %}" method="POST">
                 {% csrf_token %}
-                <!-- <label>Type Keywords With A Comma You want Result For:</label>
-                <input type="text" class="form-control" placeholder="multistate, testme" name="keywords" id="">
-                <br> -->
-                <!--  -->
                 {% for i in list_ %}
+                <h4>
+                    Table {{forloop.counter}}
+                </h4>
                 <table class="table">
                     <thead class="thead">
                       <tr>
@@ -32,29 +31,14 @@ Burt Queries
                             <tr>
                                 <td><input type="text" class="form-control" placeholder="Dg2Au" name="keyword{{iterate_}}key"></td>
                                 {% for iterate__ in number_of_columns %}
-                                <td>0</td>
+                                <td>Query {{iterate_}}{{iterate__}} </td>
                                 {% endfor %}
                             </tr>
                         {% endfor %}
                      
                     </tbody>
                   </table>
-                  
-                  
-                <!--  -->
-                <hr>
-                
-                <!-- <label>Enter Query {{i}}</label>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="text" name="name_{{i}}" class="form-control" placeholder="Keyword- ex-Dg2Au">
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" name="q_{{i}}" class="form-control" placeholder="Query">
-                    </div>
-                </div>
-                
-                <br> -->
+                  <hr>
                 {% endfor %}
                 <button type="submit" class="btn btn-outline-warning mt-2" name="submit">Proceed</button>
             </form>
