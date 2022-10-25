@@ -64,7 +64,8 @@ def query_boss(request, num_of_tables, number_of_rows, number_of_columns):
             'num_of_tables': num_of_tables,
             'number_of_rows_1': number_of_rows,
             'number_of_columns1': number_of_columns,
-            'number_of_input_box': range(number_of_rows * number_of_columns)
+            'number_of_input_box': range(number_of_rows * number_of_columns),
+            'previous_data_pk': tdh.pk
 
         }
         return render(request, 'burt/show_queries_input.html', context)
@@ -84,33 +85,45 @@ def query_boss(request, num_of_tables, number_of_rows, number_of_columns):
 
 def new_query_boss(request, number_of_tables, number_of_rows, number_of_columns, previous_data_pk):
     if request.method == 'POST':
-        keywords = []
-        for i in range(number_of_columns):
-            keywords.append(request.POST.get(f'keyword{i}'))
-        names = []
-        new = []
-        for i in range(int(number_of_tables)):
-            name = request.POST.get(f'name_{i+1}')
+        query_set = []
+        result = []
+        for i in range(number_of_tables):
+            for j in range(number_of_rows):
+                for k in range(number_of_columns):
+                    query = request.POST.get(f'q{i}{j}{k}')
+                    result.append(send_req_get_data(query))
+        context = {
+            'result': result
+        }
+        return render(request, 'burt/burt_new_result.html', context)
 
-            query_ = request.POST.get(f'q_{i+1}')
-            print(query_)
+        # keywords = []
+        # for i in range(number_of_columns):
+        #     keywords.append(request.POST.get(f'keyword{i}'))
+        # names = []
+        # new = []
+        # for i in range(int(number_of_tables)):
+        #     name = request.POST.get(f'name_{i+1}')
 
-            # counting for every keyword then keeping the result inside res dict
-            result = send_req_get_data(query_).lower()
-            print('result: '+result)
-            tmp_dict = {}
-            for word in keywords:
-                tmp = result.count(word.lower())
-                tmp_dict[f'{word}'] = tmp
-            if name not in names:
-                names.append(name)
-                new.append([name, tmp_dict])
-            else:
-                for item in new:
-                    if name in item[0]:
-                        for w in keywords:
-                            item[1][w] = item[1][w] + tmp_dict[w]
-                        break
+        #     query_ = request.POST.get(f'q_{i+1}')
+        #     print(query_)
+
+        #     # counting for every keyword then keeping the result inside res dict
+        #     result = send_req_get_data(query_).lower()
+        #     print('result: '+result)
+        #     tmp_dict = {}
+        #     for word in keywords:
+        #         tmp = result.count(word.lower())
+        #         tmp_dict[f'{word}'] = tmp
+        #     if name not in names:
+        #         names.append(name)
+        #         new.append([name, tmp_dict])
+        #     else:
+        #         for item in new:
+        #             if name in item[0]:
+        #                 for w in keywords:
+        #                     item[1][w] = item[1][w] + tmp_dict[w]
+        #                 break
     else:
         pass
 

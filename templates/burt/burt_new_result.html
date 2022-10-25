@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Queries
+{% endblock title %}
+
+
+{% block body %}
+<br>
+<div class="container card">
+    {% for r in result %}
+    {{r}}
+    {% endfor %}
+</div>
+
+{% endblock body %}

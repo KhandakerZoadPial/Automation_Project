@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Result
+Queries
 {% endblock title %}
 
 
@@ -9,7 +9,8 @@ Result
 <br>
 <div class="container card">
     <h2 class="mt-2" style="text-align: center;">Pease Enter Queries</h2>
-    <form action="" class="ml-2 mr-2 mt-2">
+    <form action="{% url 'new_query_boss' num_of_tables number_of_rows_1 number_of_columns1 previous_data_pk %}" class="ml-2 mr-2 mt-2">
+        {% csrf_token %}
         {% for item in list_ %}
             {% with firstname=forloop.counter %}
                 
